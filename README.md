@@ -1,2 +1,2 @@
-# Nba-Player-Stats-Flask-App
+# Stat Padder
  Web App for NBA Player Statistics
