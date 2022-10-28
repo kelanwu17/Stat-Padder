@@ -61,7 +61,7 @@
         <br>
         <br>
         <div class="row">
-            <h4>Career Averages</h4>
+            <h4>Career Total Averages</h4>
         </div>
         <div class="row">
             <div class="col">
@@ -86,34 +86,9 @@
             <h3>Notable Individual Awards</h3>
         </div>
         <div class="row">
+           {% block awards %}
+           {% endblock %}
            
-            {% if mvp > 0 %}
-                <h3>{{mvp}}x MVP</h3>
-            {% endif %}
-            {% if fmvp > 0 %}
-                <h3>{{fmvp}}x Finals MVP</h3>
-            {% endif %}
-            {% if dpoy > 0 %}
-                <h3>{{dpoy}}x Defensive Player of the Year</h3>
-            {% endif %}
-            {% if all_star > 0 %}
-                <h3>{{all_star}}x All-Star</h3>
-            {% endif %}
-            {% if all_nba > 0 %}
-                <h3>{{all_nba}}x ALL-NBA</h3>
-            {% endif %}
-            {% if all_d > 0 %}
-                <h3>{{all_d}}x ALL-Defense</h3>
-            {% endif %}
-            {% if roty > 0 %}
-                <h3>{{roty}}x Rookie of the Year</h3>
-            {% endif %}
-            {% if mip > 0 %}
-                <h3>{{mip}}x Most Improved Player</h3>
-            {% endif %}
-            {% if fmvp == mvp ==all_nba == all_d ==  roty ==  mip == dpoy == all_star == 0  %}
-                <h3>:( None</h3>
-            {% endif %}
         </div>
     </div>
 </body>

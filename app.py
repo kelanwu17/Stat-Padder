@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from nba_api.stats.static import teams, players
 from nba_api.stats.endpoints import playerawards, commonplayerinfo,franchisehistory, TeamYearByYearStats, commonteamroster, commonteamyears, commonallplayers, playercareerstats
 import json
 
-nba_players = players.get_players()
+
 
 
 # print(player)
@@ -24,13 +24,19 @@ app = Flask(__name__)
 def home():
     if request.method == "POST":
         player_input = request.form.get('player_input')
+        return redirect(url_for("playerinfo", player=player_input))
+    else:
+        return render_template("index.html")
+    
+@app.route("/<player>")
+def playerinfo(player):
         
         nba_players = json.loads(commonallplayers.CommonAllPlayers().get_normalized_json())
         player_id = 0;
         player_name = ""
 
         for i in range(0, len(nba_players['CommonAllPlayers'])):
-            if nba_players['CommonAllPlayers'][i]['DISPLAY_FIRST_LAST'].lower() == player_input.lower():
+            if nba_players['CommonAllPlayers'][i]['DISPLAY_FIRST_LAST'].lower() == player.lower():
                 player_id = nba_players['CommonAllPlayers'][i]['PERSON_ID']
                 player_name = nba_players['CommonAllPlayers'][i]['DISPLAY_FIRST_LAST']
                 break
@@ -43,10 +49,7 @@ def home():
         player_weight = player_info["CommonPlayerInfo"][0]["WEIGHT"]
         team_image = f'https://cdn.nba.com/logos/nba/{player_team_id}/primary/D/logo.svg'
         stats = json.loads(playercareerstats.PlayerCareerStats(player_id = player_id).get_normalized_json())
-        careerpts = 0
-        careergames = 0
-        careerast = 0
-        careerreb = 0
+        careerpts = careergames = careerreb = careerast = 0
         for i in range(0, len(stats['SeasonTotalsRegularSeason'])):
             if stats['SeasonTotalsRegularSeason'][i]['GP'] > 0:
                 careergames = careergames + stats['SeasonTotalsRegularSeason'][i]['GP']
@@ -59,13 +62,8 @@ def home():
                 
                 
         player_awards = json.loads((playerawards.PlayerAwards(player_id = player_id)).get_normalized_json())        
-        all_d = 0
-        all_nba = 0
-        fmvp = 0
-        mvp = 0
-        roty = 0
-        dpoy = 0
-        mip = 0
+        all_d = all_nba = fmvp = mvp = roty = dpoy = mip = 0
+       
         for i in range(0,len(player_awards["PlayerAwards"])):
             if (player_awards["PlayerAwards"][i]['DESCRIPTION'] == "All-Defensive Team"):
                 all_d += 1
@@ -84,8 +82,8 @@ def home():
         all_star = 0
         for i in range(0, len(stats['SeasonTotalsAllStarSeason'])):
             all_star += 1
-        return render_template("index.html", player_name = player_name, player_image =player_image,  player_country = player_country, career_pts = round(careerpts/careergames,1), career_ast = round(careerast/careergames,1), career_reb =  round(careerreb/careergames,1), all_d = all_d, all_nba = all_nba, fmvp = fmvp, mvp = mvp, roty = roty, dpoy = dpoy, mip = mip, player_weight = player_weight, player_height = player_height, all_star = all_star, team_image = team_image)
-    else:
-        return render_template("index.html")
+            
+        return render_template("awards.html", player_name = player_name, player_image =player_image, player_team = player_team, player_country = player_country, career_pts = round(careerpts/careergames,1), career_ast = round(careerast/careergames,1), career_reb =  round(careerreb/careergames,1), all_d = all_d, all_nba = all_nba, mvp=mvp, fmvp = fmvp,  roty = roty, dpoy = dpoy, mip = mip, player_weight = player_weight, player_height = player_height, all_star = all_star, team_image = team_image)
+    
 if __name__ == "__main__":
     app.run(debug=True)
