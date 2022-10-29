@@ -28,3 +28,65 @@
     <h3> None :( </h3>
     {% endif %}
 {%endblock %}
+
+{%block table %}
+<table>
+    <tr><h1>Last 5 Games</h1></tr>
+    <tr>
+        <th>Date</th>
+        <th>Match</th>
+        <th>W/L</th>
+        <th>PTS</th>
+        <th>FG</th>
+        <th>3-PT</th>
+        <th>FT</th>
+        <th>OREB</th>
+        <th>DREB</th>
+        <th>AST</th>
+        <th>STL</th>
+        <th>BLK</th>
+        <th>TO</th>
+        <th>+/-</th>
+    </tr>
+    {%if total_games < 5 %}
+        {% for i in range(0,total_games) %}
+            <tr>
+                <td>{{game_date[i]}}</td>
+                <td>{{match[i]}}</td>
+                <td>{{log_wl[i]}}</td>
+                <td>{{log_pts[i]}}</td>
+                <td>{{log_fg[i]}}</td>
+                <td>{{log_three[i]}}</td>
+                <td>{{log_ft[i]}}</td>
+                <td>{{log_oreb[i]}}</td>
+                <td>{{log_dreb[i]}}</td>
+                <td>{{log_ast[i]}}</td>
+                <td>{{log_stl[i]}}</td>
+                <td>{{log_blk[i]}}</td>
+                <td>{{log_tov[i]}}</td>
+                <td>{{log_pm[i]}}</td>
+            </tr>
+        {% endfor %}
+    {%else%}
+        {% for i in range(0,5) %}
+            <tr>
+                <td>{{game_date[i]}}</td>
+                <td>{{match[i]}}</td>
+                <td>{{log_wl[i]}}</td>
+                <td>{{log_pts[i]}}</td>
+                <td>{{log_fg[i]}}</td>
+                <td>{{log_three[i]}}</td>
+                <td>{{log_ft[i]}}</td>
+                <td>{{log_oreb[i]}}</td>
+                <td>{{log_dreb[i]}}</td>
+                <td>{{log_ast[i]}}</td>
+                <td>{{log_stl[i]}}</td>
+                <td>{{log_blk[i]}}</td>
+                <td>{{log_tov[i]}}</td>
+                <td>{{log_pm[i]}}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+   
+</table>
+{%endblock %}

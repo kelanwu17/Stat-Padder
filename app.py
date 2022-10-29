@@ -1,23 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from nba_api.stats.static import teams, players
-from nba_api.stats.endpoints import playerawards, commonplayerinfo,franchisehistory, TeamYearByYearStats, commonteamroster, commonteamyears, commonallplayers, playercareerstats
+from nba_api.stats.endpoints import playerawards, commonplayerinfo,franchisehistory, TeamYearByYearStats, commonteamroster, commonteamyears, commonallplayers, playercareerstats,playergamelog
 import json
-
-
-
-
-# print(player)
-
-# player_awards = playerawards.PlayerAwards(player_id = player_id)
-# player_json = player_awards.get_normalized_json()
-# player_json_loads = json.loads(player_json)
-# print(json.dumps(player_json_loads, indent = 4))
-# all_defense_team = 0
-# all_nba = 0
-# fmvp = 0
-# mvp = 0
-# roty = 0
-
 
 app = Flask(__name__)
 @app.route("/", methods = ["GET", "POST"])
@@ -82,8 +66,38 @@ def playerinfo(player):
         all_star = 0
         for i in range(0, len(stats['SeasonTotalsAllStarSeason'])):
             all_star += 1
-            
-        return render_template("awards.html", player_name = player_name, player_image =player_image, player_team = player_team, player_country = player_country, career_pts = round(careerpts/careergames,1), career_ast = round(careerast/careergames,1), career_reb =  round(careerreb/careergames,1), all_d = all_d, all_nba = all_nba, mvp=mvp, fmvp = fmvp,  roty = roty, dpoy = dpoy, mip = mip, player_weight = player_weight, player_height = player_height, all_star = all_star, team_image = team_image)
+        game_logs = json.loads(playergamelog.PlayerGameLog(player_id = player_id).get_normalized_json())
+        game_date = []
+        match = []
+        log_pts = []
+        log_fg = []
+        log_three = []
+        log_ft=[]
+        log_oreb=[]
+        log_dreb=[]
+        log_ast=[]
+        log_stl=[]
+        log_blk=[]
+        log_tov=[]
+        log_pm = []
+        log_wl = []
+        total_games = len(game_logs['PlayerGameLog'])
+        for i in range(0,total_games):
+            game_date.append(game_logs['PlayerGameLog'][i]['GAME_DATE'])
+            match.append(game_logs['PlayerGameLog'][i]['MATCHUP'])
+            log_pts.append(game_logs['PlayerGameLog'][i]['PTS'])
+            log_fg.append(str(game_logs['PlayerGameLog'][i]['FGM']) + "/" + str(game_logs['PlayerGameLog'][i]['FGA']))
+            log_three.append(str(game_logs['PlayerGameLog'][i]['FG3M']) + "/" + str(game_logs['PlayerGameLog'][i]['FG3A']))
+            log_ft.append(str(game_logs['PlayerGameLog'][i]['FTM']) + "/" + str(game_logs['PlayerGameLog'][i]['FTA']))
+            log_oreb.append(game_logs['PlayerGameLog'][i]['OREB'])
+            log_dreb.append(game_logs['PlayerGameLog'][i]['DREB'])
+            log_ast.append(game_logs['PlayerGameLog'][i]['AST'])
+            log_stl.append(game_logs['PlayerGameLog'][i]['STL'])
+            log_blk.append(game_logs['PlayerGameLog'][i]['BLK'])
+            log_tov.append(game_logs['PlayerGameLog'][i]['TOV'])
+            log_pm.append(game_logs['PlayerGameLog'][i]['PLUS_MINUS'])
+            log_wl.append(game_logs['PlayerGameLog'][i]['WL'])
+        return render_template("awards.html", player_name = player_name, player_image =player_image, player_team = player_team, player_country = player_country, career_pts = round(careerpts/careergames,1), career_ast = round(careerast/careergames,1), career_reb =  round(careerreb/careergames,1), all_d = all_d, all_nba = all_nba, mvp=mvp, fmvp = fmvp,  roty = roty, dpoy = dpoy, mip = mip, player_weight = player_weight, player_height = player_height, all_star = all_star, team_image = team_image, game_date = game_date, match = match, log_pts = log_pts, log_fg = log_fg, log_three = log_three, log_ft = log_ft, log_oreb = log_oreb, log_dreb = log_dreb, log_ast = log_ast, log_stl = log_stl, log_blk = log_blk, log_tov = log_tov, log_pm = log_pm, total_games = total_games, log_wl = log_wl)
     
 if __name__ == "__main__":
     app.run(debug=True)
