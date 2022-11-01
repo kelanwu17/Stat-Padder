@@ -10,7 +10,7 @@ def home():
         player_input = request.form.get('player_input')
         return redirect(url_for("playerinfo", player=player_input))
     else:
-        return render_template("index.html")
+        return render_template("home.html")
     
 @app.route("/<player>")
 def playerinfo(player):
@@ -98,6 +98,8 @@ def playerinfo(player):
             log_pm.append(game_logs['PlayerGameLog'][i]['PLUS_MINUS'])
             log_wl.append(game_logs['PlayerGameLog'][i]['WL'])
         return render_template("awards.html", player_name = player_name, player_image =player_image, player_team = player_team, player_country = player_country, career_pts = round(careerpts/careergames,1), career_ast = round(careerast/careergames,1), career_reb =  round(careerreb/careergames,1), all_d = all_d, all_nba = all_nba, mvp=mvp, fmvp = fmvp,  roty = roty, dpoy = dpoy, mip = mip, player_weight = player_weight, player_height = player_height, all_star = all_star, team_image = team_image, game_date = game_date, match = match, log_pts = log_pts, log_fg = log_fg, log_three = log_three, log_ft = log_ft, log_oreb = log_oreb, log_dreb = log_dreb, log_ast = log_ast, log_stl = log_stl, log_blk = log_blk, log_tov = log_tov, log_pm = log_pm, total_games = total_games, log_wl = log_wl)
-    
+@app.route("/history")
+def history():
+    return render_template("history.html")
 if __name__ == "__main__":
     app.run(debug=True)
