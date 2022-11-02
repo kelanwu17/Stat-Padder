@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <title>Stat Padder</title>
 </head>
 <body>
@@ -90,14 +91,66 @@
             <h3>Notable Individual Awards</h3>
         </div>
         <div class="row">
-           {% block awards %}
-           {% endblock %}
+            {% if mvp > 0 %}
+            <p>{{mvp}}x MVP</p>
+            {%endif%}
+            {% if fmvp > 0 %}
+            <p>{{fmvp}}x Finals MVP</p>
+            {% endif %}
+            {% if dpoy > 0 %}
+            <p>{{dpoy}}x Defensive Player of the Year</p>
+            {% endif %}
+            {% if all_star > 0 %}
+            <p>{{all_star}}x All-Star</p>
+            {% endif %}
+            {% if all_nba > 0 %}
+            <p>{{all_nba}}x ALL-NBA</p>
+            {% endif %}
+            {% if all_d > 0 %}
+            <p>{{all_d}}x ALL-Defense</p>
+            {% endif %}
+            {% if roty > 0 %}
+            <p>{{roty}}x Rookie of the Year</p>
+            {% endif %}
+            {% if mip > 0 %}
+            <p>{{mip}}x Most Improved Player</p>
+            {% endif %}
+            {% if fmvp == mvp ==all_nba == all_d ==  roty ==  mip == dpoy == all_star == 0  %}
+            <p> None :( </p>
+            {% endif %}
            
         </div>
     </div>
     <br>
     <br>
+    <!-- PPG Chart -->
+    <div class="container">
+        
+        <canvas id="ppgchart" style="width:100%;max-width:600px"></canvas>
+
+    </div>
+    <br>
+    <!-- FGA Donut Chart -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <canvas id="fgadonut" style="width:100%;max-width:600px"></canvas>
+            </div>
+            <div class="col">
+                <canvas id="rebDonut" style="width:100%;max-width:600px"></canvas>
+            </div>
+            <div class="col">
+                <canvas id="threeDonut" style="width:100%;max-width:600px"></canvas>
+            </div>
+            
+        </div>
+        
+    </div>
+
+
     <!-- stat table -->
+    <br>
+    <br>
     
     <div class="container">
         <div class="row">
@@ -107,4 +160,129 @@
         </div>
     </div>
 </body>
+
+
+<!-- PPG Line Graph -->
+<script>
+    var xValues =
+    [
+        {%for date in game_date %}
+        "{{date}}",
+        {% endfor %}
+    
+    ];
+    var yValues =  [ 
+    {%for points in log_pts %}
+    "{{points}}",
+    {% endfor %}
+     ];
+    
+    new Chart("ppgchart", {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          fill: false,
+          lineTension: 0,
+          backgroundColor: "rgba(0,0,255,1.0)",
+          borderColor: "rgba(0,0,255,0.1)",
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+            display:true,
+            text: "Points Per Game 2022-2023"
+        },
+        scales: {
+          yAxes: [{ticks: {min: 0, max:100}}],
+          
+        }
+      }
+    });
+    </script>
+
+<!-- FG% Donut -->
+<script>
+    var xValues = ["Field Goals Made", "Field Goals Missed"];
+    var yValues = [{{season_fgm}},{{season_fga - season_fgm}}];
+    var barColors = [
+   '#37ce7b',
+    "#b91d47"
+    ];
+   
+    new Chart("fgadonut", {
+    type: "doughnut",
+    data: {
+        labels: xValues,
+        datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+        }]
+    },
+    
+    options: {
+        title: {
+        display: true,
+        text: "Field Goal % 2022-2023"
+        }
+    }
+    });
+    
+    </script>
+
+<!-- Rebound Ratio Donut -->
+<script>
+    var xValues = ["OREB", "DREB"];
+    var yValues = [ {{oreb_total}} , {{dreb_total}}];
+    var barColors = [
+    "#00aba9",
+    "#b91d47"
+    ];
+
+    new Chart("rebDonut", {
+    type: "doughnut",
+    data: {
+        labels: xValues,
+        datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+        }]
+    },
+    options: {
+        title: {
+        display: true,
+        text: "OREB vs. DREB 2022-2023"
+        }
+    }
+    });
+</script>
+<!-- 3pt donut -->
+<script>
+        var xValues = ["3P Made", "3P Missed"];
+        var yValues = [{{threemade}},{{threeattempt - threemade}}];
+        var barColors = [
+        "#00aba9",
+        "#b91d47"
+        ];
+    
+        new Chart("threeDonut", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+            }]
+        },
+        options: {
+            title: {
+            display: true,
+            text: "3P Made vs. 3P Miss 2022-2023"
+            }
+        }
+        });
+</script>
+
 </html>
