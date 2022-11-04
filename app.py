@@ -13,9 +13,9 @@ def home():
     else:
         return render_template("home.html")
     
-@app.route("/<player>")
+@app.route("/<player>", methods = ["GET", "POST"])
 def playerinfo(player):
-        
+        year = request.form.get('season_played')
         nba_players = json.loads(commonallplayers.CommonAllPlayers().get_normalized_json())
         player_id = 0;
         player_name = ""
@@ -71,6 +71,13 @@ def playerinfo(player):
             all_star = 0
             for i in range(0, len(stats['SeasonTotalsAllStarSeason'])):
                 all_star += 1
+            
+            played_seasons = []
+            # Getting played seasons
+            for i in range(len(player_info["AvailableSeasons"]) - 1, -1, -1):
+                if player_info["AvailableSeasons"][i]['SEASON_ID'][1:] not in played_seasons:
+                    played_seasons.append(player_info["AvailableSeasons"][i]['SEASON_ID'][1:])
+            
             game_logs = json.loads(playergamelog.PlayerGameLog(player_id = player_id).get_normalized_json())
             game_date = [] #game date
             match = [] #matchups
@@ -95,29 +102,33 @@ def playerinfo(player):
             threemade = 0
             threeattempt = 0
             total_games = len(game_logs['PlayerGameLog'])
+            request.method = 'GET'
+            
+                
+            
             for i in range(total_games - 1, -1, -1):
-                game_date.append(game_logs['PlayerGameLog'][i]['GAME_DATE'])
-                match.append(game_logs['PlayerGameLog'][i]['MATCHUP'])
-                log_pts.append(game_logs['PlayerGameLog'][i]['PTS'])
-                log_fg.append(str(game_logs['PlayerGameLog'][i]['FGM']) + "/" + str(game_logs['PlayerGameLog'][i]['FGA']))
-                log_three.append(str(game_logs['PlayerGameLog'][i]['FG3M']) + "/" + str(game_logs['PlayerGameLog'][i]['FG3A']))
-                log_ft.append(str(game_logs['PlayerGameLog'][i]['FTM']) + "/" + str(game_logs['PlayerGameLog'][i]['FTA']))
-                log_oreb.append(game_logs['PlayerGameLog'][i]['OREB'])
-                log_dreb.append(game_logs['PlayerGameLog'][i]['DREB'])
-                log_ast.append(game_logs['PlayerGameLog'][i]['AST'])
-                log_stl.append(game_logs['PlayerGameLog'][i]['STL'])
-                log_blk.append(game_logs['PlayerGameLog'][i]['BLK'])
-                log_tov.append(game_logs['PlayerGameLog'][i]['TOV'])
-                log_pm.append(game_logs['PlayerGameLog'][i]['PLUS_MINUS'])
-                log_wl.append(game_logs['PlayerGameLog'][i]['WL'])
-                log_min.append(game_logs['PlayerGameLog'][i]['MIN'])
-                season_fgm = season_fgm + int(game_logs['PlayerGameLog'][i]['FGM'])
-                season_fga = season_fga + int(game_logs['PlayerGameLog'][i]['FGA'])
-                oreb_total = oreb_total + int(game_logs['PlayerGameLog'][i]['OREB'])
-                dreb_total = dreb_total + int(game_logs['PlayerGameLog'][i]['DREB'])
-                threemade = threemade + int(game_logs['PlayerGameLog'][i]['FG3M'])
-                threeattempt = threeattempt + int(game_logs['PlayerGameLog'][i]['FG3A'])
-            return render_template("stats.html", player_name = player_name, player_image =player_image, player_team = player_team, player_country = player_country, career_pts = round(careerpts/careergames,1), career_ast = round(careerast/careergames,1), career_reb =  round(careerreb/careergames,1), all_d = all_d, all_nba = all_nba, mvp=mvp, fmvp = fmvp,  roty = roty, dpoy = dpoy, mip = mip, player_weight = player_weight, player_height = player_height, all_star = all_star, team_image = team_image, game_date = game_date, match = match, log_pts = log_pts, log_fg = log_fg, log_three = log_three, log_ft = log_ft, log_oreb = log_oreb, log_dreb = log_dreb, log_ast = log_ast, log_stl = log_stl, log_blk = log_blk, log_tov = log_tov, log_pm = log_pm, total_games = total_games, log_wl = log_wl, log_min = log_min, season_fgm = season_fgm, season_fga = season_fga, oreb_total = oreb_total, dreb_total = dreb_total, threemade = threemade, threeattempt = threeattempt)
+                    game_date.append(game_logs['PlayerGameLog'][i]['GAME_DATE'])
+                    match.append(game_logs['PlayerGameLog'][i]['MATCHUP'])
+                    log_pts.append(game_logs['PlayerGameLog'][i]['PTS'])
+                    log_fg.append(str(game_logs['PlayerGameLog'][i]['FGM']) + "/" + str(game_logs['PlayerGameLog'][i]['FGA']))
+                    log_three.append(str(game_logs['PlayerGameLog'][i]['FG3M']) + "/" + str(game_logs['PlayerGameLog'][i]['FG3A']))
+                    log_ft.append(str(game_logs['PlayerGameLog'][i]['FTM']) + "/" + str(game_logs['PlayerGameLog'][i]['FTA']))
+                    log_oreb.append(game_logs['PlayerGameLog'][i]['OREB'])
+                    log_dreb.append(game_logs['PlayerGameLog'][i]['DREB'])
+                    log_ast.append(game_logs['PlayerGameLog'][i]['AST'])
+                    log_stl.append(game_logs['PlayerGameLog'][i]['STL'])
+                    log_blk.append(game_logs['PlayerGameLog'][i]['BLK'])
+                    log_tov.append(game_logs['PlayerGameLog'][i]['TOV'])
+                    log_pm.append(game_logs['PlayerGameLog'][i]['PLUS_MINUS'])
+                    log_wl.append(game_logs['PlayerGameLog'][i]['WL'])
+                    log_min.append(game_logs['PlayerGameLog'][i]['MIN'])
+                    season_fgm = season_fgm + int(game_logs['PlayerGameLog'][i]['FGM'])
+                    season_fga = season_fga + int(game_logs['PlayerGameLog'][i]['FGA'])
+                    oreb_total = oreb_total + int(game_logs['PlayerGameLog'][i]['OREB'])
+                    dreb_total = dreb_total + int(game_logs['PlayerGameLog'][i]['DREB'])
+                    threemade = threemade + int(game_logs['PlayerGameLog'][i]['FG3M'])
+                    threeattempt = threeattempt + int(game_logs['PlayerGameLog'][i]['FG3A'])
+            return render_template("stats.html", player_name = player_name, player_image =player_image, player_team = player_team, player_country = player_country, career_pts = round(careerpts/careergames,1), career_ast = round(careerast/careergames,1), career_reb =  round(careerreb/careergames,1), all_d = all_d, all_nba = all_nba, mvp=mvp, fmvp = fmvp,  roty = roty, dpoy = dpoy, mip = mip, player_weight = player_weight, player_height = player_height, all_star = all_star, team_image = team_image, game_date = game_date, match = match, log_pts = log_pts, log_fg = log_fg, log_three = log_three, log_ft = log_ft, log_oreb = log_oreb, log_dreb = log_dreb, log_ast = log_ast, log_stl = log_stl, log_blk = log_blk, log_tov = log_tov, log_pm = log_pm, total_games = total_games, log_wl = log_wl, log_min = log_min, season_fgm = season_fgm, season_fga = season_fga, oreb_total = oreb_total, dreb_total = dreb_total, threemade = threemade, threeattempt = threeattempt, played_seasons = played_seasons)
 
 
 @app.route("/history")

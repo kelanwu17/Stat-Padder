@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <form action="/" method="post" id="search">
+                <form method="post" id="search">
                     <input type="text" name = "player_input" placeholder = "Enter full name"/>
                     
                 </form>
@@ -123,29 +123,9 @@
     </div>
     <br>
     <br>
-    <!-- PPG Chart -->
-    <div class="container">
-        
-        <canvas id="ppgchart" style="width:100%;max-width:600px"></canvas>
-
-    </div>
-    <br>
-    <!-- FGA Donut Chart -->
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <canvas id="fgadonut" style="width:100%;max-width:600px"></canvas>
-            </div>
-            <div class="col">
-                <canvas id="rebDonut" style="width:100%;max-width:600px"></canvas>
-            </div>
-            <div class="col">
-                <canvas id="threeDonut" style="width:100%;max-width:600px"></canvas>
-            </div>
-            
-        </div>
-        
-    </div>
+    <!-- charts -->
+    {%block graphs %}
+    {% endblock %}
 
 
     <!-- stat table -->
@@ -209,7 +189,7 @@
     var yValues = [{{season_fgm}},{{season_fga - season_fgm}}];
     var barColors = [
    '#37ce7b',
-    "#b91d47"
+    "#5f5f5f"
     ];
    
     new Chart("fgadonut", {
@@ -237,8 +217,8 @@
     var xValues = ["OREB", "DREB"];
     var yValues = [ {{oreb_total}} , {{dreb_total}}];
     var barColors = [
-    "#00aba9",
-    "#b91d47"
+    "#3662ce",
+    "#ce3636"
     ];
 
     new Chart("rebDonut", {
@@ -263,8 +243,8 @@
         var xValues = ["3P Made", "3P Missed"];
         var yValues = [{{threemade}},{{threeattempt - threemade}}];
         var barColors = [
-        "#00aba9",
-        "#b91d47"
+        '#36cece',
+        "#5f5f5f"
         ];
     
         new Chart("threeDonut", {
@@ -279,7 +259,7 @@
         options: {
             title: {
             display: true,
-            text: "3P Made vs. 3P Miss 2022-2023"
+            text: "3P% 2022-2023"
             }
         }
         });
