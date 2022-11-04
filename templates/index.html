@@ -28,6 +28,7 @@
         </div>
     </div>
     <!-- Player Card -->
+    
     <div class="container">
         <!-- Display Bio & Image -->
         <div class="row">
@@ -232,7 +233,7 @@
         legend: {display: false},
         title: {
             display:true,
-            text: "Points Per Game 2022-2023"
+            text: "Points Per Game {{specific_year}} - " 
         },
         scales: {
           yAxes: [{ticks: {min: 0, max:100}}],
@@ -264,7 +265,7 @@
     options: {
         title: {
         display: true,
-        text: "Field Goal % 2022-2023"
+        text: "Field Goal % {{specific_year}}"
         }
     }
     });
@@ -292,7 +293,7 @@
     options: {
         title: {
         display: true,
-        text: "OREB vs. DREB 2022-2023"
+        text: "OREB vs. DREB {{specific_year}}"
         }
     }
     });
@@ -323,5 +324,10 @@
         }
         });
 </script>
+
+
+
+
+
 
 </html>

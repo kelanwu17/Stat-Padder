@@ -14,11 +14,11 @@
             <h1>Charts</h1>
         </div>
         <div class="col">
-            <form action ="/<player>/<year>" method="post" id="year">
+            <form action ="#{{specific_year}}" method="post" id="year">
                 <label>Season: </label>
                 <select name="season_played" onchange="this.form.submit();">
                     {% for year in played_seasons %}
-                    <option value="{{year}}">{{year}}</option>
+                    <option value="{{year}}" >{{year}}</option>
                     {% endfor %}
                 </select>
             </form>
@@ -44,4 +44,5 @@
     </div>
     
 </div>
+
 {% endblock %}
