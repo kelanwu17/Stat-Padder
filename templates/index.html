@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <form method="post" id="search">
+                <form action="/" method="post" id="search">
                     <input type="text" name = "player_input" placeholder = "Enter full name"/>
                     
                 </form>
@@ -134,8 +134,67 @@
     
     <div class="container">
         <div class="row">
-            {%block table %}
-            {% endblock %}
+            <table>
+                <tr><h1>Last 5 Games</h1></tr>
+                <tr>
+                    <th>Date</th>
+                    <th>Match</th>
+                    <th>W/L</th>
+                    <th>PTS</th>
+                    <th>FG</th>
+                    <th>3-PT</th>
+                    <th>FT</th>
+                    <th>OREB</th>
+                    <th>DREB</th>
+                    <th>AST</th>
+                    <th>STL</th>
+                    <th>BLK</th>
+                    <th>TO</th>
+                    <th>+/-</th>
+                    <th>Min</th>
+                </tr>
+                {%if total_games < 5 %}
+                    {% for i in range(total_games - 1, -1, -1) %}
+                        <tr>
+                            <td>{{game_date[i]}}</td>
+                            <td>{{match[i]}}</td>
+                            <td>{{log_wl[i]}}</td>
+                            <td>{{log_pts[i]}}</td>
+                            <td>{{log_fg[i]}}</td>
+                            <td>{{log_three[i]}}</td>
+                            <td>{{log_ft[i]}}</td>
+                            <td>{{log_oreb[i]}}</td>
+                            <td>{{log_dreb[i]}}</td>
+                            <td>{{log_ast[i]}}</td>
+                            <td>{{log_stl[i]}}</td>
+                            <td>{{log_blk[i]}}</td>
+                            <td>{{log_tov[i]}}</td>
+                            <td>{{log_pm[i]}}</td>
+                        </tr>
+                    {% endfor %}
+                {%else%}
+                    {% for i in range(total_games - 1, total_games - 6, -1) %}
+                        <tr>
+                            <td>{{game_date[i]}}</td>
+                            <td>{{match[i]}}</td>
+                            <td>{{log_wl[i]}}</td>
+                            <td>{{log_pts[i]}}</td>
+                            <td>{{log_fg[i]}}</td>
+                            <td>{{log_three[i]}}</td>
+                            <td>{{log_ft[i]}}</td>
+                            <td>{{log_oreb[i]}}</td>
+                            <td>{{log_dreb[i]}}</td>
+                            <td>{{log_ast[i]}}</td>
+                            <td>{{log_stl[i]}}</td>
+                            <td>{{log_blk[i]}}</td>
+                            <td>{{log_tov[i]}}</td>
+                            <td>{{log_pm[i]}}</td>
+                            <td>{{log_min[i]}}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+               
+            </table>
             
         </div>
     </div>

@@ -8,14 +8,13 @@ app = Flask(__name__)
 def home():
     if request.method == "POST":
         player_input = request.form.get('player_input')
-        
         return redirect(url_for("playerinfo", player=player_input))
     else:
         return render_template("home.html")
     
-@app.route("/<player>", methods = ["GET", "POST"])
+@app.route("/<player>")
 def playerinfo(player):
-        year = request.form.get('season_played')
+        
         nba_players = json.loads(commonallplayers.CommonAllPlayers().get_normalized_json())
         player_id = 0;
         player_name = ""
@@ -77,7 +76,7 @@ def playerinfo(player):
             for i in range(len(player_info["AvailableSeasons"]) - 1, -1, -1):
                 if player_info["AvailableSeasons"][i]['SEASON_ID'][1:] not in played_seasons:
                     played_seasons.append(player_info["AvailableSeasons"][i]['SEASON_ID'][1:])
-            
+            #for last 5 games
             game_logs = json.loads(playergamelog.PlayerGameLog(player_id = player_id).get_normalized_json())
             game_date = [] #game date
             match = [] #matchups
@@ -102,9 +101,6 @@ def playerinfo(player):
             threemade = 0
             threeattempt = 0
             total_games = len(game_logs['PlayerGameLog'])
-            request.method = 'GET'
-            
-                
             
             for i in range(total_games - 1, -1, -1):
                     game_date.append(game_logs['PlayerGameLog'][i]['GAME_DATE'])
