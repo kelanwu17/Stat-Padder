@@ -1,0 +1,25 @@
+.search-player {
+    
+    border-radius: 5px;
+    border-color:antiquewhite;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom:5px;
+    font-family: 'Didact Gothic', sans-serif;
+    
+}
+.submit-button {
+    border-radius:10px;
+    padding-left:7px;
+    padding-right:7px;
+    padding-bottom:5px;
+    background-color: white;
+}
+.search-title {
+    color:white;
+}
+.search-bar-row {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding:100px 100px;
+    border-radius:20px;
+}

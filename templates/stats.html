@@ -10,13 +10,14 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1>{{year}}</h1>
+            
             <h1>Charts</h1>
         </div>
         <div class="col">
             <form action ="#{{specific_year}}" method="post" id="year">
                 <label>Season: </label>
                 <select name="season_played" onchange="this.form.submit();">
+                    <option>Select</option>
                     {% for year in played_seasons %}
                     <option value="{{year}}" >{{year}}</option>
                     {% endfor %}

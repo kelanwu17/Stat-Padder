@@ -1,9 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 from nba_api.stats.static import teams, players
-from nba_api.stats.endpoints import playerawards, commonplayerinfo,franchisehistory, TeamYearByYearStats, commonteamroster, commonteamyears, commonallplayers, playercareerstats,playergamelog
+from nba_api.stats.endpoints import playerawards, commonplayerinfo,franchisehistory, TeamYearByYearStats, commonteamroster, commonteamyears, commonallplayers, playercareerstats,playergamelog, teamdetails
 import json
 
 app = Flask(__name__)
+
+
+
+
+
+
+
 @app.route("/", methods = ["GET", "POST"])
 def home():
     if request.method == "POST":
@@ -79,6 +86,7 @@ def playerinfo(player):
             if player_info["AvailableSeasons"][i]['SEASON_ID'][1:] not in played_seasons:
                 played_seasons.append(player_info["AvailableSeasons"][i]['SEASON_ID'][1:])
         #for last 5 games
+        
         if request.method == "POST":
             specific_year = request.form['season_played']
             game_logs = json.loads(playergamelog.PlayerGameLog(player_id = player_id, season=specific_year).get_normalized_json())
@@ -109,6 +117,7 @@ def playerinfo(player):
         threemade = 0
         threeattempt = 0
         total_games = len(game_logs['PlayerGameLog'])
+        
         
         for i in range(total_games - 1, -1, -1):
                 game_date.append(game_logs['PlayerGameLog'][i]['GAME_DATE'])
