@@ -12,23 +12,31 @@
     <title>Stat Padder</title>
 </head>
 <body>
-    <!-- Search -->
-    <div class="container-sm">
-        <div class="row d-flex justify-content-center">
-            <img class = "logo " src="static\images\Screenshot_20221202_104144.png">
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <form action="/" method="post" id="search">
-                    <input type="text" name = "player_input" placeholder = "Enter full name"/>
-                    
-                </form>
-                <button type="submit" form="search"value="submit"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M11 2c4.968 0 9 4.032 9 9s-4.032 9-9 9-9-4.032-9-9 4.032-9 9-9zm0 16c3.867 0 7-3.133 7-7 0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7zm8.485.071l2.829 2.828-1.415 1.415-2.828-2.829 1.414-1.414z"></path></g></svg></button>
-
-            </div>
+    <!-- NavBar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img class = "logo " src="static\images\Screenshot_20221202_104144-removebg-preview.png"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/history">History</a>
+            </li>
             
+        </ul>
+        <form action="/" method="post" id="search" class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name = "player_input">
+            <button class="btn btn-outline-success" type="submit" value="submit">Search</button>
+        </form>
         </div>
     </div>
+    </nav>
+    
     <br>
     <br>
     <!-- Player Card -->
@@ -36,7 +44,7 @@
     <div class="container player-profile">
         <!-- Display Bio & Image -->
         
-        <div class="row bio">
+        <div class="row bio" style="background-color: {{color}}">
             <div class="col first-col">
                 <div class="col">
                     <h2>{{player_name}}</h3>
@@ -62,6 +70,7 @@
                     <div class="col">
                         <h2>Current Team</h2>
                         <img src="{{team_image}}" width="150">
+                        
                     </div>
                 </div>
                 

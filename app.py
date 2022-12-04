@@ -5,7 +5,36 @@ import json
 
 app = Flask(__name__)
 
-
+nba_teams = teams.get_teams()
+def primaryColor(team):
+    if team == "Hawks" or team == "Bulls" or team == "Rockets" or team == "Heat" or team == "Trail Blazers" or team == "Raptors" or team == "Wizards":
+        return "DarkRed"
+    elif team == "Celtics":
+        return "Green"
+    elif team == "Nets":
+        return "Black"
+    elif team == "Hornets":
+        return "Teal"
+    elif team == "Cavaliers":
+        return "Brown"
+    elif team == "Mavericks" or team == "Pistons"  or team == "Clippers" or team == "Thunder" or team == "Magic" or team == "76ers":
+        return "Blue"
+    elif team == "Nuggets" or team == "Timberwolves" or team == "Pelicans" or team == "Jazz":
+        return "DarkBlue"
+    elif team == "Pacers" or team == "Warriors":
+        return "Yellow"
+    elif team == "Lakers"  or team == "Kings":
+        return "rgb(85, 37, 130)"
+    elif team == "Grizzlies":
+        return "SkyBlue"
+    elif team == "Bucks":
+        return "DarkGreen"
+    elif team == "Knicks"or team=="Suns":
+        return "Orange"
+    elif team == "Spurs":
+        return "Silver"
+    
+    
 
 
 
@@ -142,9 +171,9 @@ def playerinfo(player):
                 threeattempt = threeattempt + int(game_logs['PlayerGameLog'][i]['FG3A'])
                 
        
+        color = primaryColor(player_team)      
                 
-                
-        return render_template("stats.html", specific_year = specific_year, player_name = player_name, player_image =player_image, player_team = player_team, player_country = player_country, career_pts = round(careerpts/careergames,1), career_ast = round(careerast/careergames,1), career_reb =  round(careerreb/careergames,1), all_d = all_d, all_nba = all_nba, mvp=mvp, fmvp = fmvp,  roty = roty, dpoy = dpoy, mip = mip, player_weight = player_weight, player_height = player_height, all_star = all_star, team_image = team_image, game_date = game_date, match = match, log_pts = log_pts, log_fg = log_fg, log_three = log_three, log_ft = log_ft, log_oreb = log_oreb, log_dreb = log_dreb, log_ast = log_ast, log_stl = log_stl, log_blk = log_blk, log_tov = log_tov, log_pm = log_pm, total_games = total_games, log_wl = log_wl, log_min = log_min, season_fgm = season_fgm, season_fga = season_fga, oreb_total = oreb_total, dreb_total = dreb_total, threemade = threemade, threeattempt = threeattempt, played_seasons = played_seasons)
+        return render_template("stats.html", specific_year = specific_year, player_name = player_name, player_image =player_image, player_team = player_team, player_country = player_country, career_pts = round(careerpts/careergames,1), career_ast = round(careerast/careergames,1), career_reb =  round(careerreb/careergames,1), all_d = all_d, all_nba = all_nba, mvp=mvp, fmvp = fmvp,  roty = roty, dpoy = dpoy, mip = mip, player_weight = player_weight, player_height = player_height, all_star = all_star, team_image = team_image, game_date = game_date, match = match, log_pts = log_pts, log_fg = log_fg, log_three = log_three, log_ft = log_ft, log_oreb = log_oreb, log_dreb = log_dreb, log_ast = log_ast, log_stl = log_stl, log_blk = log_blk, log_tov = log_tov, log_pm = log_pm, total_games = total_games, log_wl = log_wl, log_min = log_min, season_fgm = season_fgm, season_fga = season_fga, oreb_total = oreb_total, dreb_total = dreb_total, threemade = threemade, threeattempt = threeattempt, played_seasons = played_seasons, color = color)
 
 
 @app.route("/history")
