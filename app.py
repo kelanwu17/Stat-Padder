@@ -62,7 +62,7 @@ def playerinfo(player):
             player_name = nba_players['CommonAllPlayers'][i]['DISPLAY_FIRST_LAST']
             valid_player = nba_players['CommonAllPlayers'][i]['ROSTERSTATUS']
             break
-    if valid_player == 0:
+    if valid_player == 3:
         return "<p> Invalid Player </p>"
     else:
         player_image = f'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{player_id}.png'
