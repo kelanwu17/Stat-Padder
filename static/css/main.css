@@ -1,19 +1,58 @@
+@font-face {
+    font-family: "CooperHewittBoldItalic";
+    src: url("/static/fonts/CooperHewitt-BoldItalic.woff") format('woff');
+}
+@font-face {
+    font-family: "CooperHewittMedium";
+    src: url("/static/fonts/CooperHewitt-Medium.woff") format('woff');
+}
+@font-face {
+    font-family: "CooperHewittLight";
+    src: url("/static/fonts/CooperHewitt-Light.woff") format('woff');
+}
+@font-face {
+    font-family: "CooperHewittSemibold";
+    src: url("/static/fonts/CooperHewitt-Semibold.woff") format('woff');
+}
+
+.stat-padder {
+    font-family: CooperHewittBoldItalic;
+    font-size:45px;
+}
+.header {
+    border-bottom-style: inset;
+    padding-top:50px;
+    padding-bottom:25px;
+}
+.home-description {
+    font-family:CooperHewittMedium;
+}
 .search-player {
     
     border-radius: 5px;
-    border-color:antiquewhite;
+    border-color:black;
+    border-width: 1px;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom:5px;
     font-family: 'Didact Gothic', sans-serif;
+    width:70%;
+    height:50px;
     
 }
+.search-description {
+    font-size:11px;
+}
 .submit-button {
-    border-radius:10px;
+    border-radius: 5px;
+    border-color:black;
+    border-width: 1px;
     padding-left:7px;
     padding-right:7px;
     padding-bottom:5px;
     background-color: white;
+    width:50px;
+    height:50px;
 }
 .search-title {
     color:white;
@@ -24,6 +63,18 @@
     border-radius:20px;
 }
 .logo {
-    width:400px;
+    width:75px;
     height:auto;
+}
+.history-button {
+    border-style:solid;
+    border-color:black;
+    border-width:1px;
+    border-radius:5px;
+    padding:7px 10px;
+    color:black;
+    text-decoration:none;
+    font-size:18px;
+    font-family: CooperHewittSemibold;
+
 }
