@@ -1,0 +1,121 @@
+@font-face {
+    font-family: "CooperHewittBoldItalic";
+    src: url("/static/fonts/CooperHewitt-BoldItalic.woff") format('woff');
+}
+@font-face {
+    font-family: "CooperHewittMedium";
+    src: url("/static/fonts/CooperHewitt-Medium.woff") format('woff');
+}
+@font-face {
+    font-family: "CooperHewittLight";
+    src: url("/static/fonts/CooperHewitt-Light.woff") format('woff');
+}
+@font-face {
+    font-family: "CooperHewittSemibold";
+    src: url("/static/fonts/CooperHewitt-Semibold.woff") format('woff');
+}
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 5px;
+}
+body::-webkit-scrollbar-thumb {
+    background:transparent;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(97, 97, 97);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+}
+body {
+    background-color: rgb(39, 39, 39);
+}
+
+h1,h2,h3,h4,h5,p {
+    color:white;
+}
+
+.stat {
+    color:rgb(255, 89, 0);
+}
+.stat-padder {
+    font-family: CooperHewittBoldItalic;
+    font-size:10vw;
+}
+.header {
+    border-bottom-style: inset;
+    padding-top:50px;
+    padding-bottom:25px;
+}
+.home-description {
+    font-family:CooperHewittMedium;
+}
+.search-player {
+    
+    background-color: rgb(39, 39, 39);
+    color:white;
+    border-color:black;
+    border-width: 1px;
+    outline:0px;
+    border-width: 0 0 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom:5px;
+    /* font-family: 'Didact Gothic', sans-serif; */
+    font-family:CooperHewittMedium;
+    font-size:30px;
+    width:70%;
+    height:50px;
+    
+}
+.search-player:focus {
+    border-color:orange;
+}
+.search-description {
+    font-size:11px;
+}
+.submit-button {
+    border-radius: 5px;
+    border-color:black;
+    border-width: 1px;
+    padding-left:7px;
+    padding-right:7px;
+    padding-bottom:5px;
+    background-color: white;
+    width:50px;
+    height:50px;
+}
+.search-title {
+    color:white;
+}
+.search-bar-row {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding:100px 100px;
+    border-radius:20px;
+}
+.logo {
+    width:75px;
+    height:auto;
+}
+.history-button {
+    border-style:solid;
+    border-color:black;
+    border-width:1px;
+    border-radius:5px;
+    padding:7px 10px;
+    color:black;
+    background-color: white;
+    text-decoration:none;
+    font-size:18px;
+    font-family: CooperHewittSemibold;
+
+}
+.image-one {
+    height:300px;
+    width:auto;
+}
+.details {
+    padding: 70px 0px;
+}

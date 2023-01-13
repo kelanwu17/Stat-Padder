@@ -1,0 +1,37 @@
+@font-face {
+    font-family: "CooperHewittBoldItalic";
+    src: url("/static/fonts/CooperHewitt-BoldItalic.woff") format('woff');
+}
+@font-face {
+    font-family: "CooperHewittMedium";
+    src: url("/static/fonts/CooperHewitt-MediumItalic.woff") format('woff');
+}
+h2 ,h4{
+    font-family: CooperHewittBoldItalic ;
+    color:black;
+  
+}
+h3,h5 {
+    font-family: CooperHewittMedium ;
+    color:black;
+}
+.logo {
+    width:40px;
+    height:auto;
+}
+.bio{
+    background-color: rgb(85, 37, 130);
+    border-style: 1px solid;
+    
+    border-radius: 30px;
+}
+.player-profile .col {
+    
+    text-align: center;
+    padding-top: 15px;
+    
+}
+
+
+
+

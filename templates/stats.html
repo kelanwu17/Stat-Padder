@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+
+
+
+
+{% block graphs %}
+<!-- PPG Chart -->
+    
+    
+<div class="container">
+    <div class="row">
+        <div class="col">
+            
+            <h1>Charts</h1>
+        </div>
+        <div class="col">
+            <form action ="#{{specific_year}}" method="post" id="year">
+                <label>Season: </label>
+                <select name="season_played" onchange="this.form.submit();">
+                    <option>Select</option>
+                    {% for year in played_seasons %}
+                    <option value="{{year}}" >{{year}}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </div>
+    <canvas id="ppgchart" style="width:100%;max-width:600px"></canvas>
+
+</div>
+<br>
+<!-- FGA Donut Chart -->
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <canvas id="fgadonut" style="width:100%;max-width:600px"></canvas>
+        </div>
+        <div class="col">
+            <canvas id="rebDonut" style="width:100%;max-width:600px"></canvas>
+        </div>
+        <div class="col">
+            <canvas id="threeDonut" style="width:100%;max-width:600px"></canvas>
+        </div>
+        
+    </div>
+    
+</div>
+
+{% endblock %}
